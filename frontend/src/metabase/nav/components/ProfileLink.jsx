@@ -62,7 +62,7 @@ export default class ProfileLink extends Component {
         event: `Navbar;Profile Dropdown;About ${tag}`,
       },
       {
-        title: t`About Metabase`,
+        title: t`About QuezX`,
         icon: null,
         action: () => this.openModal("about"),
         event: `Navbar;Profile Dropdown;About ${tag}`,
@@ -118,10 +118,10 @@ export default class ProfileLink extends Component {
               className="p2 h5 text-centered text-medium border-top"
             >
               <span className="block">
-                <span className="text-bold">Metabase</span>{" "}
-                {t`is a Trademark of`} Metabase, Inc
+                <span className="text-bold">QuezX</span>{" "}
+                {t`is a Trademark of`} QuezX, Inc
               </span>
-              <span>{t`and is built with care in San Francisco, CA`}</span>
+              <span>{t`and is built with care in Mumbai, IN`}</span>
             </div>
           </Modal>
         ) : null}
