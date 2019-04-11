@@ -51,12 +51,18 @@
                 window.MetabaseRoot = actualRoot;
             })();
         </script>
+
     </head>
 
     <body>
         <div id="root"></div>
 
         <script type="text/javascript">
+          window.addEventListener('message', function(event) {
+            if (event.data === 'dashboard-print') {
+              window.print();
+            }
+          });
             // Load scripts asyncronously after the page has finished loading
             (function () {
                 function loadScript(src, onload) {
@@ -76,6 +82,8 @@
                 if (googleAuthClientID) {
                     loadScript('https://apis.google.com/js/api:client.js');
                 }
+
+
             })();
         </script>
 
@@ -93,6 +101,7 @@
             }
 
             ga('create', ga_code, 'auto');
+
         </script>
     </body>
 </html>
