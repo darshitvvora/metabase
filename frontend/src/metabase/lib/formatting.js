@@ -528,6 +528,33 @@ export function formatImage(
   }
 }
 
+const MARKDOWN_LINK_WHITELIST_REGEX = /^\[([^\]]+)\]\s*\((.*)\)$/;
+
+function formatMarkdown(value: Value, { jsx, rich }: FormattingOptions = {}) {
+  const markdown = String(value);
+  /*
+   * For now only allow markdown links that take up the whole string. When more functionality
+   * is added to control rich formatting this could be expanded. Control is needed or else
+   * we risk formatting strings incorrectly due to parsing them as markup when instead they should
+   * be treated as raw strings.
+   */
+  if (jsx && rich && MARKDOWN_LINK_WHITELIST_REGEX.test(markdown)) {
+    return (
+      <ReactMarkdown
+        className="full flex-full flex flex-column"
+        skipHtml={true}
+        source={markdown}
+        renderers={{
+          link: ExternalLink,
+        }}
+        allowedTypes={["root", "text", "paragraph", "link", "linkReference"]} // TODO add "image" type
+      />
+    );
+  } else {
+    return value;
+  }
+}
+
 // fallback for formatting a string without a column special_type
 function formatStringFallback(value: Value, options: FormattingOptions = {}) {
   value = formatUrl(value, options);
@@ -536,6 +563,9 @@ function formatStringFallback(value: Value, options: FormattingOptions = {}) {
   }
   if (typeof value === "string") {
     value = formatImage(value, options);
+  }
+  if (typeof value === "string") {
+    value = formatMarkdown(value, options);
   }
   return value;
 }
