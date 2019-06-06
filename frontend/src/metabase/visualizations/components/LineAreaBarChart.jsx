@@ -415,6 +415,7 @@ function transformSingleSeries(s, series, seriesIndex) {
             newRow._origin = { seriesIndex, rowIndex, row, cols };
             return newRow;
           }),
+          redirectUrl: rows.map(row => (typeof row[0] === 'string' && row[0].startsWith('http') ? row[0] : null)),
           cols: rowColumnIndexes.map(i => cols[i]),
           _rawCols: cols,
         },
