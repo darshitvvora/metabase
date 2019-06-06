@@ -835,7 +835,7 @@ export default function lineAreaBar(
 
   setupTooltips(props, datas, parent, brushChangeFunctions);
 
-  applyClickListner(props, parent, chartType);
+  applyClickListener(props, parent, chartType);
 
   parent.render();
 
@@ -865,7 +865,7 @@ export default function lineAreaBar(
   };
 }
 
-function applyClickListner({ series }, chart, chartType) {
+function applyClickListener({ series }, chart, chartType) {
   chart.on('renderlet', function(chart) {
     const redirectUrlList = series[0].data.redirectUrl;
     if (chartType === 'bar') {
@@ -878,7 +878,6 @@ function applyClickListner({ series }, chart, chartType) {
 
     if (['line', 'area'].includes(chartType)) {
       chart.selectAll('circle').on('click.custom', function(d, i) {
-        console.log(d);
         if (redirectUrlList) {
           window.open(redirectUrlList[i], "_blank");
         }
