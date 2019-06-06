@@ -769,7 +769,7 @@ export default function lineAreaBar(
   element: Element,
   props: LineAreaBarProps,
 ): DeregisterFunction {
-  const { onRender, isScalarSeries, settings, series } = props;
+  const { onRender, isScalarSeries, settings, series, chartType } = props;
 
   const warnings = {};
   const warn = id => {
@@ -854,6 +854,8 @@ export default function lineAreaBar(
 
   setupTooltips(props, datas, parent, brushChangeFunctions);
 
+  applyClickListener(props, parent, chartType);
+
   parent.render();
 
   // apply any on-rendering functions (this code lives in `LineAreaBarPostRenderer`)
@@ -880,6 +882,27 @@ export default function lineAreaBar(
   return () => {
     dc.chartRegistry.deregister(parent);
   };
+}
+
+function applyClickListener({ series }, chart, chartType) {
+  chart.on('renderlet', function(chart) {
+    const redirectUrlList = series[0].data.redirectUrl;
+    if (chartType === 'bar') {
+      chart.selectAll('rect.bar').on('click.custom', function(d, i) {
+        if (redirectUrlList) {
+          window.open(redirectUrlList[i], "_blank");
+        }
+      });
+    }
+
+    if (['line', 'area'].includes(chartType)) {
+      chart.selectAll('circle').on('click.custom', function(d, i) {
+        if (redirectUrlList) {
+          window.open(redirectUrlList[i], "_blank");
+        }
+      });
+    }
+  });
 }
 
 export const lineRenderer = (element, props) =>

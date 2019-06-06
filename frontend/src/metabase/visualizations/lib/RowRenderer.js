@@ -110,6 +110,19 @@ export default function rowRenderer(
       .classed(labelsOutside ? "outside" : "inside", true);
   });
 
+  const redirectUrlList = series[0].data.redirectUrl;
+
+  if (redirectUrlList) {
+    chart.on('renderlet', function(chart) {
+      chart.selectAll('rect').on('click.custom', function(d, i) {
+        console.log('row chart', d, i);
+        if (redirectUrlList) {
+          window.open(redirectUrlList[i], "_blank");
+        }
+      });
+    });
+  }
+
   if (settings["graph.y_axis.labels_enabled"]) {
     chart.on("renderlet.axis-labels", chart => {
       chart
