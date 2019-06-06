@@ -206,7 +206,7 @@ export default class PieChart extends Component {
         value: row[metricIndex],
         percentage: row[metricIndex] / total,
         color: settings["pie._colors"][row[dimensionIndex]],
-        redirectUrl: row[0],
+        redirectUrl: typeof row[0] === 'string' && row[0].startsWith('http') ? row[0] : null,
       }))
       .partition(d => d.percentage > sliceThreshold)
       .value();
