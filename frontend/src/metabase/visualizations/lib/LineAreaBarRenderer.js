@@ -874,20 +874,24 @@ function applyClickListener({ series }, chart, chartType) {
       redirectUrlList = urlExits.length ? redirectUrlList : undefined;
     }
 
-    if (chartType === 'bar') {
-      chart.selectAll('rect.bar').on('click.custom', function(d, i) {
-        if (redirectUrlList) {
+    if (redirectUrlList) {
+      if (chartType === 'bar') {
+        chart.selectAll('rect.bar').on('click.custom', function(d, i) {
           window.open(redirectUrlList[i], "_blank");
-        }
-      });
-    }
+        });
+      }
 
-    if (['line', 'area'].includes(chartType)) {
-      chart.selectAll('circle').on('click.custom', function(d, i) {
-        if (redirectUrlList) {
+      if (['line', 'area'].includes(chartType)) {
+        chart.selectAll('circle').on('click.custom', function(d, i) {
           window.open(redirectUrlList[i], "_blank");
-        }
-      });
+        });
+      }
+
+      if (chartType === 'scatter') {
+        chart.selectAll('circle.bubble').on('click.custom', function(d, i) {
+          window.open(redirectUrlList[i], "_blank");
+        });
+      }
     }
   });
 }
