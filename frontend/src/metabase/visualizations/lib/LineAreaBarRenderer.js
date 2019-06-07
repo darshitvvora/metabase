@@ -867,7 +867,13 @@ export default function lineAreaBar(
 
 function applyClickListener({ series }, chart, chartType) {
   chart.on('renderlet', function(chart) {
-    const redirectUrlList = series[0].data.redirectUrl;
+    let redirectUrlList = series[0].data.redirectUrl;
+
+    if (redirectUrlList) {
+      const urlExits = redirectUrlList.filter(url => url);
+      redirectUrlList = urlExits.length ? redirectUrlList : undefined;
+    }
+
     if (chartType === 'bar') {
       chart.selectAll('rect.bar').on('click.custom', function(d, i) {
         if (redirectUrlList) {
