@@ -1,0 +1,62 @@
+Index: frontend/src/metabase/visualizations/lib/LineAreaBarRenderer.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- frontend/src/metabase/visualizations/lib/LineAreaBarRenderer.js	(revision b854098f07f07c018f16958e7286a1da98148d03)
++++ frontend/src/metabase/visualizations/lib/LineAreaBarRenderer.js	(date 1563445179000)
+@@ -877,19 +877,19 @@
+     if (redirectUrlList) {
+       if (chartType === 'bar') {
+         chart.selectAll('rect.bar').on('click.custom', function(d, i) {
+-          window.open(redirectUrlList[i], "_blank");
++          window.open(redirectUrlList[i], "_self");
+         });
+       }
+ 
+       if (['line', 'area'].includes(chartType)) {
+         chart.selectAll('circle').on('click.custom', function(d, i) {
+-          window.open(redirectUrlList[i], "_blank");
++          window.open(redirectUrlList[i], "_self");
+         });
+       }
+ 
+       if (chartType === 'scatter') {
+         chart.selectAll('circle.bubble').on('click.custom', function(d, i) {
+-          window.open(redirectUrlList[i], "_blank");
++          window.open(redirectUrlList[i], "_self");
+         });
+       }
+     }
+Index: frontend/src/metabase/visualizations/visualizations/PieChart.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- frontend/src/metabase/visualizations/visualizations/PieChart.jsx	(revision b854098f07f07c018f16958e7286a1da98148d03)
++++ frontend/src/metabase/visualizations/visualizations/PieChart.jsx	(date 1563444901000)
+@@ -359,7 +359,7 @@
+             <svg className={styles.Donut + " m1"} viewBox="0 0 100 100">
+               <g ref="group" transform={`translate(50,50)`}>
+                 {pie(slices).map((slice, index) => (
+-                  <a href={slices[index].redirectUrl} target="_blank">
++                  <a href={slices[index].redirectUrl} target="_self">
+                     <path
+                       key={index}
+                       d={arc(slice)}
+Index: frontend/src/metabase/visualizations/lib/RowRenderer.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- frontend/src/metabase/visualizations/lib/RowRenderer.js	(revision b854098f07f07c018f16958e7286a1da98148d03)
++++ frontend/src/metabase/visualizations/lib/RowRenderer.js	(date 1563536588000)
+@@ -117,7 +117,7 @@
+       chart.selectAll('rect').on('click.custom', function(d, i) {
+         console.log('row chart', d, i);
+         if (redirectUrlList) {
+-          window.open(redirectUrlList[i], "_blank");
++          window.open(redirectUrlList[i], "_self");
+         }
+       });
+     });

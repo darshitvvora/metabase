@@ -393,7 +393,7 @@ export default class PieChart extends Component {
             <svg className={styles.Donut + " m1"} viewBox="0 0 100 100">
               <g ref="group" transform={`translate(50,50)`}>
                 {pie(slices).map((slice, index) => (
-                  <a href={slices[index].redirectUrl} target="_blank">
+                  <a href={slices[index].redirectUrl} target="_self">
                     <path
                       key={index}
                       d={arc(slice)}

@@ -117,7 +117,7 @@ export default function rowRenderer(
       chart.selectAll('rect').on('click.custom', function(d, i) {
         console.log('row chart', d, i);
         if (redirectUrlList) {
-          window.open(redirectUrlList[i], "_blank");
+          window.open(redirectUrlList[i], "_self");
         }
       });
     });
